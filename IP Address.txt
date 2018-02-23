@@ -1,0 +1,10 @@
+IP Address: 54.191.128.221
+
+To view existing data:
+
+Login: ashwinvidiyala@gmail.com
+Login: mary@smith.com
+Login: john@smith.com
+
+Password: chocolate
+Same password for all users
