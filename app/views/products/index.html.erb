@@ -1,0 +1,21 @@
+<h4>Hi, <%= current_user.first_name %></h4>
+
+<h4>All Products</h4>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Seller</th>
+    <th>Date Posted</th>
+    <th>Amount</th>
+    <th>Action</th>
+  </tr>
+  <% @unpurchased_products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.user.first_name %> <%= product.user.last_name %></td>
+      <td><%= product.created_at.to_date %></td>
+      <td><%= number_to_currency(product.amount) %></td>
+      <td><a href="<%= purchases_path product.id %>" data-method='post'>Buy</a></td>
+    </tr>
+  <% end %>
+</table>

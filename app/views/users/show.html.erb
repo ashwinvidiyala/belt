@@ -1,0 +1,69 @@
+<h4>Hi, <%= @user.first_name %></h4>
+<h4>Sell Product</h4>
+<form action="<%= products_path %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label>Name</label>
+  <input type="name" name="product[name]"><br>
+
+  <label>Amount</label>
+  <input type="integer" name="product[amount]"><br>
+
+  <input type="submit" value="Sell">
+</form>
+
+<p>Your Products That Are Not Yet Sold</p>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Date Posted</th>
+    <th>Amount</th>
+    <th>Action</th>
+  </tr>
+  <% @my_products_not_yet_sold.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.created_at.to_date %></td>
+      <td><%= number_to_currency(product.amount) %></td>
+      <td><a href="<%= product_path product.id%>" data-method='delete'>Remove</a></td>
+    </tr>
+  <% end %>
+</table>
+
+<p>Sales</p>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Date Bought</th>
+    <th>Buyer</th>
+    <th>Amount</th>
+  </tr>
+  <% @my_products_sold.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.date_bought %></td>
+      <td><%= User.find(product.buyer_id).first_name %> <%= User.find(product.buyer_id).last_name %></td>
+      <td><%= number_to_currency(product.amount) %></td>
+    </tr>
+  <% end %>
+</table>
+<p class='bold'>Total: <%= number_to_currency(@total_sales) %></p>
+
+<p>Purchases</p>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Date Bought</th>
+    <th>Seller</th>
+    <th>Amount</th>
+  </tr>
+  <% @products_bought.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.date_bought %></td>
+      <td><%= product.user.first_name %> <%= product.user.last_name %></td>
+      <td><%= number_to_currency(product.amount) %></td>
+    </tr>
+  <% end %>
+</table>
+<p class='bold'>Total: <%= number_to_currency(@total_purchases) %></p>

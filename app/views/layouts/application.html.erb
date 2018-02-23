@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Belt</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+      <p class='error' ><%= error %></p>
+    <% end %>
+  <% end %>
+
+  <% if current_user %>
+    <a href="<%= logout_path %>" data-method='delete'>Logout</a>
+    <a href="<%= user_path current_user %>">Go To Dashboard</a>
+    <a href="<%= products_path %>">Go To All Products</a>
+  <% end %>
+
+  <%= yield %>
+
+</body>
+</html>
